@@ -135,24 +135,30 @@ export default function DeliveryPage() {
     if (!newDelivery.packageInfo.typeOfGoods) {
       newDelivery.packageInfo.typeOfGoods = ' '
     }
-    console.log(newDelivery)
     try {
-      const response = await createDelivery(newDelivery)
-      console.log(response)
+      await createDelivery(newDelivery)
       openNotificationWithIcon({
         type: 'success',
         message: 'Заказ успешно создан',
         description: 'Заказ успешно создан',
       })
-    } catch (error: any) {
-      console.log(error)
+    } catch (error: unknown) {
+      const err = error as { status?: number };
+    
       openNotificationWithIcon({
         type: 'error',
         message: 'Ошибка при создании заказа',
-        description: error.status === 400 ? 'Заполнены не все поля' : error.status === 401 ? 'Необходимо авторизоваться' : error.status === 500 ? 'Произошла ошибка на сервере' : 'Произошла ошибка',
-      })
+        description:
+          err.status === 400
+            ? 'Заполнены не все поля'
+            : err.status === 401
+            ? 'Необходимо авторизоваться'
+            : err.status === 500
+            ? 'Произошла ошибка на сервере'
+            : 'Произошла ошибка',
+      });
     }
-    // TODO: ОТПРАВКА ЗАКАЗА НА СЕРВЕР
+    
   };
 
   useEffect(() => {

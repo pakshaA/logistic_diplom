@@ -1,6 +1,5 @@
 'use client'
 import { ConfigProvider, Radio, RadioChangeEvent } from 'antd'
-import { useState } from 'react';
 
 interface RadioOption {
     label: string;
@@ -17,10 +16,8 @@ const options: RadioOption[] = [
 ]
 
 export const RadioGroup = ({onChange}: IProps) => {
-    const [value, setValue] = useState('items')
     const onChangeRadio = (e: RadioChangeEvent) => {
-        setValue((e.target as HTMLInputElement).value)
-        onChange((e.target as HTMLInputElement).value)
+        onChange(e.target.value)
     }
     return (
         <ConfigProvider theme={{

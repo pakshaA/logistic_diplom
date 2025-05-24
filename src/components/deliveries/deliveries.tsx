@@ -67,7 +67,7 @@ export const Deliveries = () => {
         } catch (error) {
             openNotificationWithIcon(
                 'Ошибка',
-                'Не удалось получить доставку'
+                `Не удалось получить доставку. ${error}`
             )
         }
     }

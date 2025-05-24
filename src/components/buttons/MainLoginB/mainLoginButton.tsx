@@ -119,16 +119,17 @@ export const MainLoginButton = () => {
                 setModalMode('login');
                 openNotificationWithIcon({ type: 'success', message: "Успешно", description: "Вы зарегистрированы" });
             }
-        } catch (error: any) {
-            if (error.status === 409) {
+        } catch (error: unknown) {
+            const err = error as { status?: number, message?: string };
+            if (err.status === 409) {
                 setEmailError("Пользователь с таким email уже существует");
                 openNotificationWithIcon({ type: 'error', message: "Ошибка", description: "Пользователь с таким email уже существует" });
-            } else if (error.status === 500) {
+            } else if (err.status === 500) {
                 setPasswordError("Ошибка сервера");
                 openNotificationWithIcon({ type: 'error', message: "Ошибка", description: "Ошибка сервера" });
             } else {
                 setPasswordError("Произошла ошибка");
-                openNotificationWithIcon({ type: 'error', message: "Ошибка", description: error.message || "Произошла ошибка" });
+                openNotificationWithIcon({ type: 'error', message: "Ошибка", description: err.message || "Произошла ошибка" });
             }
         }
     
@@ -146,16 +147,17 @@ export const MainLoginButton = () => {
                 setModalMode(null);
                 resetForm();
             }
-        } catch (error: any) {
-            if (error.status === 401) {
+        } catch (error: unknown) {
+            const err = error as { status?: number, message?: string };
+            if (err.status === 401) {
                 setPasswordError("Неверный email или пароль");
                 openNotificationWithIcon({ type: 'error', message: "Ошибка", description: "Неверный email или пароль" });
-            } else if (error.status === 500) {
+            } else if (err.status === 500) {
                 setPasswordError("Ошибка сервера");
                 openNotificationWithIcon({ type: 'error', message: "Ошибка", description: "Ошибка сервера" });
             } else {
                 setPasswordError("Произошла ошибка");
-                openNotificationWithIcon({ type: 'error', message: "Ошибка", description: error.message || "Произошла ошибка" });
+                openNotificationWithIcon({ type: 'error', message: "Ошибка", description: err.message || "Произошла ошибка" });
             }
         }
     };
@@ -164,8 +166,9 @@ export const MainLoginButton = () => {
         logout().then(() => {
             setIsAuth(false);
             openNotificationWithIcon({ type: 'success', message: "Выход", description: "Вы успешно вышли" });
-        }).catch((error: any) => {
-            openNotificationWithIcon({ type: 'error', message: "Ошибка", description: error.message || "Произошла ошибка" });
+        }).catch((error: unknown) => {
+            const err = error as { message?: string };
+            openNotificationWithIcon({ type: 'error', message: "Ошибка", description: err.message || "Произошла ошибка" });
         });
     }
 
