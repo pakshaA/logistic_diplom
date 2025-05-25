@@ -5,7 +5,7 @@ export const register = async (user: { email: string; password: string; id: stri
             headers: {
                 'Content-Type': 'application/json',
             },
-            credentials: 'include', 
+            credentials: 'include',
             body: JSON.stringify(user),
         });
 
@@ -19,10 +19,12 @@ export const register = async (user: { email: string; password: string; id: stri
         const data = await response.json();
         return { data, status };
 
-    } catch (err: any) {
+    } catch (err: unknown) {
+        const error = err as { status?: number; message?: string };
+
         throw {
-            status: err?.status || 500,
-            message: err?.message || 'Неизвестная ошибка',
+            status: error?.status || 500,
+            message: error?.message || 'Неизвестная ошибка',
         };
     }
 };

@@ -26,7 +26,7 @@ export const RightSide = ({ city, onDataChange }: IRightSideProps) => {
       const data = await getAddress(value, city)
       const suggestions = data.results || []
       setOptions(
-        suggestions.map((s: any) => ({
+        suggestions.map((s: {value: string}) => ({
           value: s.value,
           label: s.value
         }))
