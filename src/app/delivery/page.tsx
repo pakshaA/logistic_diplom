@@ -27,26 +27,20 @@ interface PackageState {
 
 
 export default function DeliveryPage() {
-  const searchParams = useSearchParams()
 
-  const cityFrom = searchParams.get('cityFrom') || ''
-  const cityTo = searchParams.get('cityTo') || ''
 
-  const rawPackage = searchParams.get('packageInfo')
-  const parsedPackage = rawPackage ? JSON.parse(rawPackage) : {}
-
-  const [cityFromSelect, setCityFromSelect] = useState(cityFrom)
-  const [cityToSelect, setCityToSelect] = useState(cityTo)
+  const [cityFromSelect, setCityFromSelect] = useState('')
+  const [cityToSelect, setCityToSelect] = useState('')
   const [packageInfoSelect, setPackageInfoSelect] = useState<PackageState>({
     package: {
-      length: parsedPackage.length || '',
-      width: parsedPackage.width || '',
-      height: parsedPackage.height || '',
-      weight: parsedPackage.weight || '',
-      id: parsedPackage.id || '',
+      length: '',
+      width: '',
+      height: '',
+      weight: '',
+      id: '',
     },
-    isGoods: parsedPackage.isGoods || false,
-    typeOfGoods: parsedPackage.typeOfGoods || ''
+    isGoods: false,
+    typeOfGoods: ''
   })
   
 
@@ -78,6 +72,7 @@ export default function DeliveryPage() {
   }, [senderData.phone, receiverData.phone])
   
   useEffect(() => {
+    const searchParams = useSearchParams()
     const cityFrom = searchParams.get('cityFrom') || ''
     const cityTo = searchParams.get('cityTo') || ''
     const rawPackage = searchParams.get('packageInfo')
@@ -253,13 +248,13 @@ export default function DeliveryPage() {
             <div className="flex flex-col gap-[20px] w-[calc(20%-20px)] p-[20px] border border-[#3A906B] shadow-[0_0_30px_0_#3A906B] rounded-[15px]">
               <PackageSelect
                 defaultValue={{
-                  length: parsedPackage.length || '',
-                  width: parsedPackage.width || '',
-                  height: parsedPackage.height || '',
-                  weight: parsedPackage.weight || '',
-                  id: parsedPackage.id || '',
-                  isGoods: parsedPackage.isGoods || false,
-                  typeOfGoods: parsedPackage.typeOfGoods || ''
+                  length: packageInfoSelect.package.length || '',
+                  width: packageInfoSelect.package.width || '',
+                  height: packageInfoSelect.package.height || '',
+                  weight: packageInfoSelect.package.weight || '',
+                  id: packageInfoSelect.package.id || '',
+                  isGoods: packageInfoSelect.isGoods,
+                  typeOfGoods: packageInfoSelect.typeOfGoods
                 }}
                 onSelect={(selected) => setPackageInfoSelect(prev => ({
                   package: selected,
