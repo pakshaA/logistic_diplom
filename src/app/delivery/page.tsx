@@ -27,7 +27,7 @@ interface PackageState {
 
 
 export default function DeliveryPage() {
-
+  const searchParams = useSearchParams()
 
   const [cityFromSelect, setCityFromSelect] = useState('')
   const [cityToSelect, setCityToSelect] = useState('')
@@ -72,7 +72,6 @@ export default function DeliveryPage() {
   }, [senderData.phone, receiverData.phone])
   
   useEffect(() => {
-    const searchParams = useSearchParams()
     const cityFrom = searchParams.get('cityFrom') || ''
     const cityTo = searchParams.get('cityTo') || ''
     const rawPackage = searchParams.get('packageInfo')
