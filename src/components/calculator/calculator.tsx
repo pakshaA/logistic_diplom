@@ -97,7 +97,7 @@ export const Calculator = () => {
                 <div className="mb-[20px]">
                     <h1 className="text-[24px] font-bold">Рассчитать стоимость доставки</h1>
                 </div>
-                <div className="flex gap-4">
+                <div className="flex gap-4 max-sm:flex-col">
                     <div>
                         <CustomSelect placeholder="Выберите город отправки" onChange={(selectedCityFrom: string) => handleChange('selectedCityFrom', selectedCityFrom)} />
                     </div>
@@ -105,12 +105,13 @@ export const Calculator = () => {
                         <CustomSelect placeholder="Выберите город доставки" onChange={(selectedCityTo: string) => handleChange('selectedCityTo', selectedCityTo)} />
                     </div>
                 </div>
-                <div className="mt-[20px] flex gap-[75px]">
+                <div className="mt-[20px] flex gap-[75px] max-sm:flex-col max-sm:gap-[20px]">
                     <div>
                         <RadioGroup onChange={(selectedRadio: string) => handleChange('selectedRadio', selectedRadio)} />
                     </div>
                     <div className="flex flex-col gap-[20px]">
                         <PackageSelect 
+                            
                             defaultValue={selectedPackage ? {
                                 ...selectedPackage,
                                 isGoods: selectedRadio === 'food',
@@ -132,7 +133,7 @@ export const Calculator = () => {
                     </div>
                 </div>
 
-                <div className="flex justify-end">
+                <div className="flex justify-end pt-[20px]">
                     <CountButton onClick={handleSubmit} />
                 </div>
 
